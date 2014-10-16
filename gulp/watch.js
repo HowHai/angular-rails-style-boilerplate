@@ -6,15 +6,15 @@ var coffee = require('gulp-coffee');
 
 // Coffeescript
 gulp.task('coffee', function() {
-  gulp.src('src/app/**/*.coffee')
+  gulp.src('app/**/*.coffee')
     .pipe(coffee({bare: true}).on('error', gutil.log))
-    .pipe(gulp.dest('src/app'))
+    .pipe(gulp.dest('app'))
 });
 
 gulp.task('watch', ['wiredep', 'styles'] ,function () {
-  gulp.watch('src/{app,components}/**/*.scss', ['styles']);
-  gulp.watch('src/{app,components}/**/*.js', ['scripts']);
-  gulp.watch('src/assets/images/**/*', ['images']);
+  gulp.watch('app/**/*.scss', ['styles']);
+  gulp.watch('app/**/*.js', ['scripts']);
+  gulp.watch('app/assets/images/**/*', ['images']);
   gulp.watch('bower.json', ['wiredep']);
-  gulp.watch('src/app/**/*.coffee', ['coffee']);
+  gulp.watch('app/**/*.coffee', ['coffee']);
 });

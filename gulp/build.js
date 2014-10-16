@@ -12,7 +12,7 @@ function handleError(err) {
 }
 
 gulp.task('styles', function () {
-  return gulp.src('src/{app,components}/**/*.scss')
+  return gulp.src('app/**/*.scss')
     .pipe($.rubySass({style: 'expanded'}))
     .on('error', handleError)
     .pipe($.autoprefixer('last 1 version'))
@@ -21,14 +21,14 @@ gulp.task('styles', function () {
 });
 
 gulp.task('scripts', function () {
-  return gulp.src('src/{app,components}/**/*.js')
+  return gulp.src('app/**/*.js')
     .pipe($.jshint())
     .pipe($.jshint.reporter('jshint-stylish'))
     .pipe($.size());
 });
 
 gulp.task('partials', function () {
-  return gulp.src('src/{app,components}/**/*.html')
+  return gulp.src('app/**/*.html')
     .pipe($.minifyHtml({
       empty: true,
       spare: true,
@@ -47,12 +47,12 @@ gulp.task('html', ['styles', 'scripts', 'partials'], function () {
   var cssFilter = $.filter('**/*.css');
   var assets;
 
-  return gulp.src('src/*.html')
-    .pipe($.inject(gulp.src('.tmp/{app,components}/**/*.js'), {
+  return gulp.src('app/*.html')
+    .pipe($.inject(gulp.src('.tmp/app/**/*.js'), {
       read: false,
       starttag: '<!-- inject:partials -->',
       addRootSlash: false,
-      addPrefix: '../'
+      addPrefix: ''
     }))
     .pipe(assets = $.useref.assets())
     .pipe($.rev())
@@ -79,7 +79,7 @@ gulp.task('html', ['styles', 'scripts', 'partials'], function () {
 });
 
 gulp.task('images', function () {
-  return gulp.src('src/assets/images/**/*')
+  return gulp.src('app/assets/images/**/*')
     .pipe($.cache($.imagemin({
       optimizationLevel: 3,
       progressive: true,
